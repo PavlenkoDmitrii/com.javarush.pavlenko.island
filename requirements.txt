@@ -46,7 +46,7 @@ abstract Animal (Животное)
 Island (Остров)
 Location (Локация) / Cell (Клетка)
 
-? Settings
+? config.Settings
 xml / json / yaml - как их читать в Java
 Может быть вероятности съедания можно хранить в настройках
 
