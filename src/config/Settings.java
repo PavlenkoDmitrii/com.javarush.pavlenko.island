@@ -91,7 +91,7 @@ public class Settings {
     public static final String PLANT_NAME = "Plant";
 
 //PROBABILITY OF EAT IN %
-    //wolf
+
     public static final int PROBABILITY_WOLF_EAT_HORSE = 10;
     public static final int PROBABILITY_WOLF_EAT_DEER = 15;
     public static final int PROBABILITY_WOLF_EAT_RABBIT = 60;
@@ -101,17 +101,17 @@ public class Settings {
     public static final int PROBABILITY_WOLF_EAT_BOAR = 15;
     public static final int PROBABILITY_WOLF_EAT_BUFFALO = 10;
     public static final int PROBABILITY_WOLF_EAT_DUCK = 40;
-    //boa
+
     public static final int PROBABILITY_BOA_EAT_FOX = 15;
     public static final int PROBABILITY_BOA_EAT_RABBIT = 20;
     public static final int PROBABILITY_BOA_EAT_MOUSE = 40;
     public static final int PROBABILITY_BOA_EAT_DUCK = 10;
-    //fox
+
     public static final int PROBABILITY_FOX_EAT_RABBIT = 70;
     public static final int PROBABILITY_FOX_EAT_MOUSE = 90;
     public static final int PROBABILITY_FOX_EAT_DUCK = 60;
     public static final int PROBABILITY_FOX_EAT_CATERPILLAR = 40;
-    //bear
+
     public static final int PROBABILITY_BEAR_EAT_BOA = 80;
     public static final int PROBABILITY_BEAR_EAT_HORSE = 40;
     public static final int PROBABILITY_BEAR_EAT_DEER = 80;
@@ -122,16 +122,23 @@ public class Settings {
     public static final int PROBABILITY_BEAR_EAT_BOAR = 50;
     public static final int PROBABILITY_BEAR_EAT_BUFFALO = 20;
     public static final int PROBABILITY_BEAR_EAT_DUCK = 10;
-    //eagle
+
     public static final int PROBABILITY_EAGLE_EAT_FOX = 10;
     public static final int PROBABILITY_EAGLE_EAT_RABBIT = 90;
     public static final int PROBABILITY_EAGLE_EAT_MOUSE = 90;
     public static final int PROBABILITY_EAGLE_EAT_DUCK = 80;
-    //mouse
+
     public static final int PROBABILITY_MOUSE_EAT_CATERPILLAR = 90;
-    //boar
+
     public static final int PROBABILITY_BOAR_EAT_MOUSE = 50;
     public static final int PROBABILITY_BOAR_EAT_CATERPILLAR = 90;
-    //duck
+
     public static final int PROBABILITY_DUCK_EAT_CATERPILLAR = 90;
+
+    //public static final int PROBABILITY_PLANTS_TO_BE_EATABLE = 100;
+
+//number of creatures in one location at start
+    public static final int NUMBER_PREDATORS_IN_LOCATION_AT_START = 5;
+    public static final int NUMBER_HERBIVORES_IN_LOCATION_AT_START = 10;
+    public static final int NUMBER_PLANTS_IN_LOCATION_AT_START = 0;
 }

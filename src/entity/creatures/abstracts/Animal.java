@@ -1,6 +1,10 @@
 package entity.creatures.abstracts;
 
-public abstract class Animal extends Creatures {
+import entity.creatures.Eatable;
+
+import java.util.HashMap;
+
+public abstract class Animal extends Creature {
 
     private int maxSpeed;
     private double maxSatiety;
@@ -20,27 +24,24 @@ public abstract class Animal extends Creatures {
     }
 
     public void worker() {
-
     }
 
-    public void eat(Creatures typeOfEatable, int probability) {
-        if (probability > 30) {
-            System.out.println(this.getClass().getSimpleName() +
-                    " cъел " +
-                    typeOfEatable.getClass().getSimpleName());
-        }
+    public HashMap<Eatable, Integer> getProbabilities(){
+        return null;
     }
 
-        public void chooseDirection () {
-
-        }
-
-        public void move () {
-
-        }
-
-        public void die () {
-
-        }
-
+    public void eat(Eatable eatable) {
+        //???
     }
+
+    public void chooseDirection() {
+    }
+
+    public void move() {
+    }
+
+    public void die() {
+        //remove
+    }
+
+}

@@ -1,11 +1,13 @@
 package entity.creatures.abstracts;
 
-public abstract class Creatures {
+import entity.creatures.Eatable;
+
+public abstract class Creature implements Eatable {
     private double weight;
     private int maxCountOnLocation;
     private String name;
 
-    public Creatures(double weight, int maxCountOnLocation, String name) {
+    public Creature(double weight, int maxCountOnLocation, String name) {
         this.weight = weight;
         this.maxCountOnLocation = maxCountOnLocation;
         this.name = name;
