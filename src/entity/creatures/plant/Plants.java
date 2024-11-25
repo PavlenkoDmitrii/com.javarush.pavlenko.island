@@ -7,7 +7,7 @@ import static config.Settings.*;
 public class Plants extends Creatures {
 
     public Plants() {
-        super(WEIGHT_PLANT, MAX_COUNT_PLANT);
+        super(WEIGHT_PLANT, MAX_COUNT_PLANT, PLANT_NAME);
     }
 
     @Override

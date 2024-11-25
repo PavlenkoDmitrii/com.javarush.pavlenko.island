@@ -7,7 +7,7 @@ import static config.Settings.*;
 public class Eagle extends Predator {
 
     public Eagle() {
-        super(WEIGHT_EAGLE, MAX_COUNT_EAGLE, MAX_SPEED_EAGLE, MAX_SATIETY_EAGLE);
+        super(WEIGHT_EAGLE, MAX_COUNT_EAGLE, EAGLE_NAME, MAX_SPEED_EAGLE, MAX_SATIETY_EAGLE);
 
     }
 }
