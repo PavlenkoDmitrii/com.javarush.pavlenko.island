@@ -13,9 +13,6 @@ public abstract class Creature implements Eatable {
         this.name = name;
     }
 
-    public String getName() {
-        return name;
-    }
 
     public double getWeight() {
         return weight;
@@ -26,6 +23,9 @@ public abstract class Creature implements Eatable {
     }
 
     public void reproduce() {
+    }
 
+    public void die() {
+        System.out.println("съедено");
     }
 }

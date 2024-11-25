@@ -1,5 +1,6 @@
 package entity.creatures.animals.herbivores;
 
+import config.Settings;
 import entity.creatures.Eatable;
 import entity.creatures.abstracts.Herbivore;
 
@@ -10,15 +11,15 @@ import static factory.TypesHerbivores.CATERPILLAR;
 
 public class Mouse extends Herbivore {
 
-    private final HashMap<Eatable, Integer> mouseProbabilities;
+    private final HashMap<String, Integer> mouseProbabilities;
     {
         mouseProbabilities = new HashMap<>() {{
-            put(CATERPILLAR, PROBABILITY_MOUSE_EAT_CATERPILLAR);
+            put(CATERPILLAR_NAME, PROBABILITY_MOUSE_EAT_CATERPILLAR);
         }};
     }
 
     @Override
-    public HashMap<Eatable, Integer> getProbabilities() {
+    public HashMap<String, Integer> getProbabilities() {
         return mouseProbabilities;
     }
 

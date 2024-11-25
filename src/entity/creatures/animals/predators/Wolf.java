@@ -1,7 +1,6 @@
 package entity.creatures.animals.predators;
 
 import entity.creatures.abstracts.Predator;
-import entity.creatures.Eatable;
 import java.util.HashMap;
 
 import static config.Settings.*;
@@ -9,23 +8,23 @@ import static factory.TypesHerbivores.*;
 
 public class Wolf extends Predator {
 
-    private final HashMap<Eatable, Integer> wolfProbabilities;
+    private final HashMap<String, Integer> wolfProbabilities;
     {
         wolfProbabilities = new HashMap<>() {{
-            put(HORSE, PROBABILITY_WOLF_EAT_HORSE);
-            put(DEER, PROBABILITY_WOLF_EAT_DEER);
-            put(RABBIT, PROBABILITY_WOLF_EAT_RABBIT);
-            put(MOUSE, PROBABILITY_WOLF_EAT_MOUSE);
-            put(GOAT, PROBABILITY_WOLF_EAT_GOAT);
-            put(SHEEP, PROBABILITY_WOLF_EAT_SHEEP);
-            put(BOAR, PROBABILITY_WOLF_EAT_BOAR);
-            put(BUFFALO, PROBABILITY_WOLF_EAT_BUFFALO);
-            put(DUCK, PROBABILITY_WOLF_EAT_DUCK);
+            put(HORSE_NAME, PROBABILITY_WOLF_EAT_HORSE);
+            put(DEER_NAME, PROBABILITY_WOLF_EAT_DEER);
+            put(RABBIT_NAME, PROBABILITY_WOLF_EAT_RABBIT);
+            put(MOUSE_NAME, PROBABILITY_WOLF_EAT_MOUSE);
+            put(GOAT_NAME, PROBABILITY_WOLF_EAT_GOAT);
+            put(SHEEP_NAME, PROBABILITY_WOLF_EAT_SHEEP);
+            put(BOAR_NAME, PROBABILITY_WOLF_EAT_BOAR);
+            put(BUFFALO_NAME, PROBABILITY_WOLF_EAT_BUFFALO);
+            put(DUCK_NAME, PROBABILITY_WOLF_EAT_DUCK);
         }};
     }
 
     @Override
-    public HashMap<Eatable, Integer> getProbabilities() {
+    public HashMap<String, Integer> getProbabilities() {
         return wolfProbabilities;
     }
 

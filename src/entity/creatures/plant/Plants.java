@@ -1,5 +1,6 @@
 package entity.creatures.plant;
 
+import entity.creatures.Eatable;
 import entity.creatures.abstracts.Creature;
 
 import static config.Settings.*;
@@ -12,6 +13,11 @@ public class Plants extends Creature {
 
     @Override
     public void reproduce() {
+
+    }
+
+    @Override
+    public void die() {
 
     }
 }

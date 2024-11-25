@@ -11,24 +11,24 @@ import static factory.TypesPredators.*;
 
 public class Bear extends Predator {
 
-    private final HashMap<Eatable, Integer> bearProbabilities;
+    private final HashMap<String, Integer> bearProbabilities;
     {
         bearProbabilities = new HashMap<>() {{
-            put(BOA, PROBABILITY_BEAR_EAT_BOA);
-            put(HORSE, PROBABILITY_BEAR_EAT_HORSE);
-            put(DEER, PROBABILITY_BEAR_EAT_DEER);
-            put(RABBIT, PROBABILITY_BEAR_EAT_RABBIT);
-            put(MOUSE, PROBABILITY_BEAR_EAT_MOUSE);
-            put(GOAT, PROBABILITY_BEAR_EAT_GOAT);
-            put(SHEEP, PROBABILITY_BEAR_EAT_SHEEP);
-            put(BOAR, PROBABILITY_BEAR_EAT_BOAR);
-            put(BUFFALO, PROBABILITY_BEAR_EAT_BUFFALO);
-            put(DUCK, PROBABILITY_BEAR_EAT_DUCK);
+            put(BOA_NAME, PROBABILITY_BEAR_EAT_BOA);
+            put(HORSE_NAME, PROBABILITY_BEAR_EAT_HORSE);
+            put(DEER_NAME, PROBABILITY_BEAR_EAT_DEER);
+            put(RABBIT_NAME, PROBABILITY_BEAR_EAT_RABBIT);
+            put(MOUSE_NAME, PROBABILITY_BEAR_EAT_MOUSE);
+            put(GOAT_NAME, PROBABILITY_BEAR_EAT_GOAT);
+            put(SHEEP_NAME, PROBABILITY_BEAR_EAT_SHEEP);
+            put(BOAR_NAME, PROBABILITY_BEAR_EAT_BOAR);
+            put(BUFFALO_NAME, PROBABILITY_BEAR_EAT_BUFFALO);
+            put(DUCK_NAME, PROBABILITY_BEAR_EAT_DUCK);
         }};
     }
 
     @Override
-    public HashMap<Eatable, Integer> getProbabilities() {
+    public HashMap<String, Integer> getProbabilities() {
         return bearProbabilities;
     }
 

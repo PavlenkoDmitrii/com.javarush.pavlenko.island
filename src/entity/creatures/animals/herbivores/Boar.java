@@ -10,16 +10,16 @@ import static factory.TypesHerbivores.*;
 
 public class Boar extends Herbivore {
 
-    private final HashMap<Eatable, Integer> boarProbabilities;
+    private final HashMap<String, Integer> boarProbabilities;
     {
         boarProbabilities = new HashMap<>() {{
-            put(MOUSE, PROBABILITY_BOAR_EAT_MOUSE);
-            put(CATERPILLAR, PROBABILITY_BOAR_EAT_CATERPILLAR);
+            put(MOUSE_NAME, PROBABILITY_BOAR_EAT_MOUSE);
+            put(CATERPILLAR_NAME, PROBABILITY_BOAR_EAT_CATERPILLAR);
         }};
     }
 
     @Override
-    public HashMap<Eatable, Integer> getProbabilities() {
+    public HashMap<String, Integer> getProbabilities() {
         return boarProbabilities;
     }
 

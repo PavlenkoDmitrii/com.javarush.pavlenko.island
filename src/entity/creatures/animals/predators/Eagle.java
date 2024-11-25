@@ -11,18 +11,18 @@ import static factory.TypesPredators.*;
 
 public class Eagle extends Predator {
 
-    private final HashMap<Eatable, Integer> eagleProbabilities;
+    private final HashMap<String, Integer> eagleProbabilities;
     {
         eagleProbabilities = new HashMap<>() {{
-            put(FOX, PROBABILITY_EAGLE_EAT_FOX);
-            put(RABBIT, PROBABILITY_EAGLE_EAT_RABBIT);
-            put(MOUSE, PROBABILITY_EAGLE_EAT_MOUSE);
-            put(DUCK, PROBABILITY_EAGLE_EAT_DUCK);
+            put(FOX_NAME, PROBABILITY_EAGLE_EAT_FOX);
+            put(RABBIT_NAME, PROBABILITY_EAGLE_EAT_RABBIT);
+            put(MOUSE_NAME, PROBABILITY_EAGLE_EAT_MOUSE);
+            put(DUCK_NAME, PROBABILITY_EAGLE_EAT_DUCK);
         }};
     }
 
     @Override
-    public HashMap<Eatable, Integer> getProbabilities() {
+    public HashMap<String, Integer> getProbabilities() {
         return eagleProbabilities;
     }
 

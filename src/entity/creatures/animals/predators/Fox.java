@@ -9,18 +9,18 @@ import static factory.TypesHerbivores.*;
 
 public class Fox extends Predator {
 
-    private final HashMap<Eatable, Integer> foxProbabilities;
+    private final HashMap<String , Integer> foxProbabilities;
     {
         foxProbabilities = new HashMap<>() {{
-            put(RABBIT, PROBABILITY_FOX_EAT_RABBIT);
-            put(MOUSE, PROBABILITY_FOX_EAT_MOUSE);
-            put(DUCK, PROBABILITY_FOX_EAT_DUCK);
-            put(CATERPILLAR, PROBABILITY_FOX_EAT_CATERPILLAR);
+            put(RABBIT_NAME, PROBABILITY_FOX_EAT_RABBIT);
+            put(MOUSE_NAME, PROBABILITY_FOX_EAT_MOUSE);
+            put(DUCK_NAME, PROBABILITY_FOX_EAT_DUCK);
+            put(CATERPILLAR_NAME, PROBABILITY_FOX_EAT_CATERPILLAR);
         }};
     }
 
     @Override
-    public HashMap<Eatable, Integer> getProbabilities() {
+    public HashMap<String, Integer> getProbabilities() {
         return foxProbabilities;
     }
 

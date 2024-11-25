@@ -10,15 +10,15 @@ import static factory.TypesHerbivores.CATERPILLAR;
 
 public class Duck extends Herbivore {
 
-    private final HashMap<Eatable, Integer> duckProbabilities;
+    private final HashMap<String, Integer> duckProbabilities;
     {
         duckProbabilities = new HashMap<>() {{
-            put(CATERPILLAR, PROBABILITY_DUCK_EAT_CATERPILLAR);
+            put(CATERPILLAR_NAME, PROBABILITY_DUCK_EAT_CATERPILLAR);
         }};
     }
 
     @Override
-    public HashMap<Eatable, Integer> getProbabilities() {
+    public HashMap<String, Integer> getProbabilities() {
         return duckProbabilities;
     }
 

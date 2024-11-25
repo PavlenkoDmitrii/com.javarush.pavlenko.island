@@ -11,18 +11,18 @@ import static factory.TypesPredators.FOX;
 
 public class Boa extends Predator {
 
-    private final HashMap<Eatable, Integer> boaProbabilities;
+    private final HashMap<String, Integer> boaProbabilities;
     {
         boaProbabilities = new HashMap<>() {{
-            put(FOX, PROBABILITY_BOA_EAT_FOX);
-            put(RABBIT, PROBABILITY_BOA_EAT_RABBIT);
-            put(MOUSE, PROBABILITY_BOA_EAT_MOUSE);
-            put(DUCK, PROBABILITY_BOA_EAT_DUCK);
+            put(FOX_NAME, PROBABILITY_BOA_EAT_FOX);
+            put(RABBIT_NAME, PROBABILITY_BOA_EAT_RABBIT);
+            put(MOUSE_NAME, PROBABILITY_BOA_EAT_MOUSE);
+            put(DUCK_NAME, PROBABILITY_BOA_EAT_DUCK);
         }};
     }
 
     @Override
-    public HashMap<Eatable, Integer> getProbabilities() {
+    public HashMap<String, Integer> getProbabilities() {
         return boaProbabilities;
     }
 

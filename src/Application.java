@@ -9,6 +9,5 @@ public class Application {
 
         wolf.eat(mouse);
 
-
     }
 }

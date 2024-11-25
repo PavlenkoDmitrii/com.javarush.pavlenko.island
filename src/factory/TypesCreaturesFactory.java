@@ -15,7 +15,7 @@ public class TypesCreaturesFactory {
             case BOA -> creatures = new Boa();
             case EAGLE -> creatures = new Eagle();
             case FOX -> creatures = new Fox();
-            case WOLF -> creatures = new Wolf();
+            //case WOLF -> creatures = new Wolf();
             default -> throw new RuntimeException("Incorrect type");
         }
         return creatures;

@@ -33,4 +33,7 @@ public enum TypesHerbivores implements Eatable {
                     .findFirst().orElseThrow(() -> new RuntimeException("Указан некорректный ID: " + id));
         return type;
     }
+
+    @Override
+    public void die() {}
 }
