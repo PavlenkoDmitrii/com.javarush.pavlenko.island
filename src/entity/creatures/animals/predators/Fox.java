@@ -1,11 +1,9 @@
 package entity.creatures.animals.predators;
 
-import entity.creatures.Eatable;
 import entity.creatures.abstracts.Predator;
 import java.util.HashMap;
 
 import static config.Settings.*;
-import static factory.TypesHerbivores.*;
 
 public class Fox extends Predator {
 

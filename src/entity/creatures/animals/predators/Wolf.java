@@ -4,7 +4,6 @@ import entity.creatures.abstracts.Predator;
 import java.util.HashMap;
 
 import static config.Settings.*;
-import static factory.TypesHerbivores.*;
 
 public class Wolf extends Predator {
 

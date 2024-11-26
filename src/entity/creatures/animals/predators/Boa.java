@@ -1,13 +1,10 @@
 package entity.creatures.animals.predators;
 
-import entity.creatures.Eatable;
 import entity.creatures.abstracts.Predator;
 
 import java.util.HashMap;
 
 import static config.Settings.*;
-import static factory.TypesHerbivores.*;
-import static factory.TypesPredators.FOX;
 
 public class Boa extends Predator {
 

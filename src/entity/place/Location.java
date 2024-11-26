@@ -1,65 +1,83 @@
 package entity.place;
 
-import entity.creatures.abstracts.Animal;
-import entity.creatures.abstracts.Creature;
-import entity.creatures.abstracts.Herbivore;
-import entity.creatures.abstracts.Predator;
+import entity.creatures.abstracts.*;
+import factory.TypesCreatures;
 import factory.TypesCreaturesFactory;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
-
-import static config.Settings.*;
-import static entity.creatures.abstracts.Herbivore.randomHerbivore;
-import static entity.creatures.abstracts.Predator.randomPredator;
-import static factory.TypesHerbivores.getHerbivoreByID;
-import static factory.TypesPredators.getPredatorByID;
-
+import java.util.stream.Collectors;
 
 public class Location {
-
     private List<Creature> creaturesOnIsland;
+    private TypesCreaturesFactory factory;
+
 
     public Location() {
         this.creaturesOnIsland = new ArrayList<>();
+        this.factory = new TypesCreaturesFactory();
+    }
+
+    public void addCreature(Creature creature) {
+        creaturesOnIsland.add(creature);
+    }
+
+    public void removeCreaturesOnIsland(Creature creature) {
+        creaturesOnIsland.remove(creature);
     }
 
     public List<Creature> getCreaturesOnIsland() {
         return creaturesOnIsland;
     }
 
-    TypesCreaturesFactory typesCreaturesFactory = new TypesCreaturesFactory();
-
-    private List<Predator> createPredators() {
-        List<Predator> predatorList = new ArrayList<>();
-        for (int i = 0; i < NUMBER_PREDATORS_IN_LOCATION_AT_START; i++) {
-            predatorList.add((Predator) typesCreaturesFactory.createPredator
-                    (getPredatorByID(randomPredator())));
-        }
-        return predatorList;
-    }
-
-    private List<Herbivore> createHerbivores() {
-        List<Herbivore> herbivoreList = new ArrayList<>();
-        for (int i = 0; i < NUMBER_HERBIVORES_IN_LOCATION_AT_START; i++) {
-            herbivoreList.add((Herbivore) typesCreaturesFactory.createHerbivore
-                    (getHerbivoreByID(randomHerbivore())));
-        }
-        return herbivoreList;
-    }
-
+//    public int getLine() {
+//        return line;
+//    }
+//
+//    public int getColumn() {
+//        return column;
+//    }
 
     public List<Animal> getAnimals() {
-        List<Predator> predators = createPredators();
-        List<Herbivore> herbivores = createHerbivores();
-        creaturesOnIsland.addAll(predators);
-        creaturesOnIsland.addAll(herbivores);
-
         return creaturesOnIsland.stream()
-                .filter(animal -> animal instanceof Animal)
-                .map(animal -> (Animal) animal)
+                .filter(objectIslands -> objectIslands instanceof Animal)
+                .map(objectIslands -> (Animal) objectIslands)
                 .toList();
     }
+
+    public void fillLocation() {
+        StringBuilder statistic = new StringBuilder();
+        for (TypesCreatures type : TypesCreatures.values()) {
+            int random = (int) (Math.random() * factory.createCreature(type).getMaxCountOnLocation());
+            Creature creature = factory.createCreature(type);
+            int count = 0;
+            for (int j = 0; j < random; j++) {
+                creaturesOnIsland.add(creature);
+                count++;
+            }
+            statistic.append(creature.getClass().getSimpleName()).append(" -> ").append(count).append(" ");
+        }
+        System.out.println("[ " + statistic + "]");
+        System.out.println(creaturesOnIsland.size());
+    }
+
+    public void eatOnLocation() {
+        for (Animal animal : getAnimals()) {
+            Creature creatureOnIsland = creaturesOnIsland.get((int) (Math.random() * getCreaturesOnIsland().size()));
+            animal.eat(creatureOnIsland);
+        }
+        List<Creature> eatedAnimals = new ArrayList<>();
+        for (Creature creature : creaturesOnIsland) {
+            if (creature.getIsEaten()) {
+                eatedAnimals.add(creature);
+            }
+        }
+        creaturesOnIsland.removeAll(eatedAnimals);
+        System.out.println(creaturesOnIsland.size());
+
+    }
 }
+
 
 

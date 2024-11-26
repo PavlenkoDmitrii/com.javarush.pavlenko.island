@@ -1,13 +1,10 @@
 package entity.creatures.animals.herbivores;
 
-import config.Settings;
-import entity.creatures.Eatable;
 import entity.creatures.abstracts.Herbivore;
 
 import java.util.HashMap;
 
 import static config.Settings.*;
-import static factory.TypesHerbivores.CATERPILLAR;
 
 public class Mouse extends Herbivore {
 
@@ -15,6 +12,7 @@ public class Mouse extends Herbivore {
     {
         mouseProbabilities = new HashMap<>() {{
             put(CATERPILLAR_NAME, PROBABILITY_MOUSE_EAT_CATERPILLAR);
+            put(PLANT_NAME, PROBABILITY_PLANTS_TO_BE_EATABLE);
         }};
     }
 

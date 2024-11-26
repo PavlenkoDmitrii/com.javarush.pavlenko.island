@@ -135,7 +135,7 @@ public class Settings {
 
     public static final int PROBABILITY_DUCK_EAT_CATERPILLAR = 90;
 
-    //public static final int PROBABILITY_PLANTS_TO_BE_EATABLE = 100;
+    public static final int PROBABILITY_PLANTS_TO_BE_EATABLE = 100;
 
 //number of creatures in one location at start
     public static final int NUMBER_PREDATORS_IN_LOCATION_AT_START = 5;

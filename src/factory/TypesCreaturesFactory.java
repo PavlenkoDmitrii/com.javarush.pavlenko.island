@@ -3,25 +3,11 @@ package factory;
 import entity.creatures.abstracts.Creature;
 import entity.creatures.animals.herbivores.*;
 import entity.creatures.animals.predators.*;
-import entity.creatures.plant.Plants;
+import entity.creatures.plant.Plant;
 
 public class TypesCreaturesFactory {
 
-    public Creature createPredator(TypesPredators type) {
-
-        Creature creatures;
-        switch (type) {
-            case BEAR -> creatures = new Bear();
-            case BOA -> creatures = new Boa();
-            case EAGLE -> creatures = new Eagle();
-            case FOX -> creatures = new Fox();
-            //case WOLF -> creatures = new Wolf();
-            default -> throw new RuntimeException("Incorrect type");
-        }
-        return creatures;
-    }
-
-    public Creature createHerbivore(TypesHerbivores type) {
+    public Creature createCreature(TypesCreatures type) {
 
         Creature creatures;
         switch (type) {
@@ -35,12 +21,14 @@ public class TypesCreaturesFactory {
             case MOUSE -> creatures = new Mouse();
             case RABBIT -> creatures = new Rabbit();
             case SHEEP -> creatures = new Sheep();
+            case BEAR -> creatures = new Bear();
+            case BOA -> creatures = new Boa();
+            case EAGLE -> creatures = new Eagle();
+            case FOX -> creatures = new Fox();
+            case WOLF -> creatures = new Wolf();
+            case PLANT -> creatures = new Plant();
             default -> throw new RuntimeException("Incorrect type");
         }
         return creatures;
-    }
-
-    public Creature createPlants() {
-        return new Plants();
     }
 }

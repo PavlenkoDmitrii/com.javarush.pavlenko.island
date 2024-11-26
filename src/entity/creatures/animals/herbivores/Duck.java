@@ -1,12 +1,10 @@
 package entity.creatures.animals.herbivores;
 
-import entity.creatures.Eatable;
 import entity.creatures.abstracts.Herbivore;
 
 import java.util.HashMap;
 
 import static config.Settings.*;
-import static factory.TypesHerbivores.CATERPILLAR;
 
 public class Duck extends Herbivore {
 
@@ -14,6 +12,7 @@ public class Duck extends Herbivore {
     {
         duckProbabilities = new HashMap<>() {{
             put(CATERPILLAR_NAME, PROBABILITY_DUCK_EAT_CATERPILLAR);
+            put(PLANT_NAME, PROBABILITY_PLANTS_TO_BE_EATABLE);
         }};
     }
 

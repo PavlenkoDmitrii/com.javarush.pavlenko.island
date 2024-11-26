@@ -1,12 +1,10 @@
 package entity.creatures.animals.herbivores;
 
-import entity.creatures.Eatable;
 import entity.creatures.abstracts.Herbivore;
 
 import java.util.HashMap;
 
 import static config.Settings.*;
-import static factory.TypesHerbivores.*;
 
 public class Boar extends Herbivore {
 
@@ -15,6 +13,7 @@ public class Boar extends Herbivore {
         boarProbabilities = new HashMap<>() {{
             put(MOUSE_NAME, PROBABILITY_BOAR_EAT_MOUSE);
             put(CATERPILLAR_NAME, PROBABILITY_BOAR_EAT_CATERPILLAR);
+            put(PLANT_NAME, PROBABILITY_PLANTS_TO_BE_EATABLE);
         }};
     }
 
@@ -26,5 +25,4 @@ public class Boar extends Herbivore {
     public Boar() {
         super(WEIGHT_BOAR, MAX_COUNT_BOAR, BOAR_NAME, MAX_SPEED_BOAR, MAX_SATIETY_BOAR);
     }
-
 }
