@@ -1,13 +1,32 @@
 package entity.creatures.abstracts;
 
 import java.util.HashMap;
-import java.util.Map;
+import java.util.concurrent.ThreadLocalRandom;
+
+import static config.Settings.FOOD_VALUE;
 
 public abstract class Animal extends Creature {
 
     private int maxSpeed;
     private double maxSatiety;
     private double actualSatiety;
+    private boolean isEat;
+
+    public Animal(double weight, int maxCountOnLocation, String name, int maxSpeed, double maxSatiety) {
+        super(weight, maxCountOnLocation, name);
+        this.maxSpeed = maxSpeed;
+        this.maxSatiety = maxSatiety;
+        this.actualSatiety = (this.getMaxSatiety() / 2.0);
+        this.isEat = false;
+    }
+
+    public boolean getIsEat() {
+        return isEat;
+    }
+
+    public void setEat(boolean isEat) {
+        this.isEat = isEat;
+    }
 
     public int getMaxSpeed() {
         return maxSpeed;
@@ -17,24 +36,30 @@ public abstract class Animal extends Creature {
         return maxSatiety;
     }
 
-    public Animal(double weight, int maxCountOnLocation, String name, int maxSpeed, double maxSatiety) {
-        super(weight, maxCountOnLocation, name);
-        this.maxSpeed = maxSpeed;
-        this.maxSatiety = maxSatiety;
+    public double getActualSatiety() {
+        return actualSatiety;
     }
 
     public void worker() {
+        actualSatiety--;
     }
 
     public abstract HashMap<String, Integer> getProbabilities();
 
     public void eat(Creature creature) {
-        if (!creature.getIsEaten()) {
+        if (!creature.getIsDead() && this.actualSatiety != this.getMaxSatiety() && !this.getIsEat()) {
             HashMap<String, Integer> probabilities = this.getProbabilities();
-            for (Map.Entry<String, Integer> entry : probabilities.entrySet()) {
-                if (entry.getKey().equalsIgnoreCase(creature.getClass().getSimpleName())) {
-                    int chanceToEat = (int) (Math.random() * 100);
-                    if (entry.getValue() >= chanceToEat) {
+            if (probabilities.containsKey(creature.getName())) {
+                int probabilityToEat = ThreadLocalRandom.current().nextInt(0, 100);
+                int probabilityOfEaten = probabilities.get(creature.getName());
+                if (probabilityToEat <= probabilityOfEaten) {
+                    if (this.getMaxSatiety() < 1) {
+                        this.actualSatiety = this.getMaxSatiety(); //вот тут
+                        this.setEat(true);
+                        creature.die();
+                    } else {
+                        this.actualSatiety += FOOD_VALUE;
+                        this.setEat(true);
                         creature.die();
                     }
                 }
@@ -48,8 +73,4 @@ public abstract class Animal extends Creature {
     public void move() {
     }
 
-    @Override
-    public void reproduce() {
-
-    }
 }

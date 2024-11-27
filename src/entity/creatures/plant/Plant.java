@@ -9,9 +9,5 @@ public class Plant extends Creature {
     public Plant() {
         super(WEIGHT_PLANT, MAX_COUNT_PLANT, PLANT_NAME);
     }
-
-    @Override
-    public void reproduce() {
-    }
 }
 

@@ -5,77 +5,84 @@ import factory.TypesCreatures;
 import factory.TypesCreaturesFactory;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
+import java.util.concurrent.ThreadLocalRandom;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class Location {
-    private List<Creature> creaturesOnIsland;
+    private int line;
+    private int column;
+    private List<Creature> creaturesOnLocation;
     private TypesCreaturesFactory factory;
+    private static final AtomicInteger COUNTER = new AtomicInteger(1);
+    private final int id;
 
 
-    public Location() {
-        this.creaturesOnIsland = new ArrayList<>();
+    public Location(int x, int y) {
+        this.line = x;
+        this.column = y;
+        this.creaturesOnLocation = new ArrayList<>();
         this.factory = new TypesCreaturesFactory();
+        id = COUNTER.getAndIncrement();
+    }
+
+    public int getId() {
+        return id;
     }
 
     public void addCreature(Creature creature) {
-        creaturesOnIsland.add(creature);
+        creaturesOnLocation.add(creature);
     }
 
     public void removeCreaturesOnIsland(Creature creature) {
-        creaturesOnIsland.remove(creature);
+        creaturesOnLocation.remove(creature);
     }
 
-    public List<Creature> getCreaturesOnIsland() {
-        return creaturesOnIsland;
+    public List<Creature> getCreaturesOnLocation() {
+        return creaturesOnLocation;
     }
 
-//    public int getLine() {
-//        return line;
-//    }
-//
-//    public int getColumn() {
-//        return column;
-//    }
+    public int getLine() {
+        return line;
+    }
 
-    public List<Animal> getAnimals() {
-        return creaturesOnIsland.stream()
-                .filter(objectIslands -> objectIslands instanceof Animal)
-                .map(objectIslands -> (Animal) objectIslands)
+    public int getColumn() {
+        return column;
+    }
+
+    private List<Animal> getAnimals() {
+        return creaturesOnLocation.stream()
+                .filter(animal -> animal instanceof Animal)
+                .map(animal -> (Animal) animal)
                 .toList();
     }
 
     public void fillLocation() {
-        StringBuilder statistic = new StringBuilder();
         for (TypesCreatures type : TypesCreatures.values()) {
-            int random = (int) (Math.random() * factory.createCreature(type).getMaxCountOnLocation());
-            Creature creature = factory.createCreature(type);
-            int count = 0;
+            int random = ThreadLocalRandom.current().nextInt(1, factory.createCreature(type).getMaxCountOnLocation());
             for (int j = 0; j < random; j++) {
-                creaturesOnIsland.add(creature);
-                count++;
+                Creature creature = factory.createCreature(type);
+                creaturesOnLocation.add(creature);
             }
-            statistic.append(creature.getClass().getSimpleName()).append(" -> ").append(count).append(" ");
         }
-        System.out.println("[ " + statistic + "]");
-        System.out.println(creaturesOnIsland.size());
     }
 
     public void eatOnLocation() {
         for (Animal animal : getAnimals()) {
-            Creature creatureOnIsland = creaturesOnIsland.get((int) (Math.random() * getCreaturesOnIsland().size()));
-            animal.eat(creatureOnIsland);
-        }
-        List<Creature> eatedAnimals = new ArrayList<>();
-        for (Creature creature : creaturesOnIsland) {
-            if (creature.getIsEaten()) {
-                eatedAnimals.add(creature);
+            if (!animal.getIsDead()) {
+                Creature randomCreatureForEat = creaturesOnLocation.get(ThreadLocalRandom.current().nextInt(0, getCreaturesOnLocation().size()));
+                if (!randomCreatureForEat.getIsDead()) {
+                    animal.eat(randomCreatureForEat);
+                }
             }
         }
-        creaturesOnIsland.removeAll(eatedAnimals);
-        System.out.println(creaturesOnIsland.size());
-
+        List<Creature> eatenCreatures = new ArrayList<>();
+        for (Creature creature : creaturesOnLocation) {
+            if (creature.getIsDead()) {
+                eatenCreatures.add(creature);
+            }
+        }
+        creaturesOnLocation.removeAll(eatenCreatures);
     }
 }
 
