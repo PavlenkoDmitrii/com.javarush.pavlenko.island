@@ -47,24 +47,24 @@ public abstract class Animal extends Creature {
     public abstract HashMap<String, Integer> getProbabilities();
 
     public void eat(Creature creature) {
-        if (!creature.getIsDead() && this.actualSatiety != this.getMaxSatiety() && !this.getIsEat()) {
-            HashMap<String, Integer> probabilities = this.getProbabilities();
-            if (probabilities.containsKey(creature.getName())) {
-                int probabilityToEat = ThreadLocalRandom.current().nextInt(0, 100);
-                int probabilityOfEaten = probabilities.get(creature.getName());
-                if (probabilityToEat <= probabilityOfEaten) {
-                    if (this.getMaxSatiety() < 1) {
-                        this.actualSatiety = this.getMaxSatiety(); //вот тут
-                        this.setEat(true);
-                        creature.die();
-                    } else {
-                        this.actualSatiety += FOOD_VALUE;
-                        this.setEat(true);
-                        creature.die();
-                    }
-                }
-            }
+        if (!canEat(creature) || !this.getProbabilities().containsKey(creature.getName())) {
+            return;
         }
+        int probabilityToEat = ThreadLocalRandom.current().nextInt(0, 100);
+        int probabilityOfEaten = this.getProbabilities().get(creature.getName());
+        if (probabilityToEat <= probabilityOfEaten) {
+            if (this.getMaxSatiety() < 1) {
+                this.actualSatiety = this.getMaxSatiety();
+            } else {
+                this.actualSatiety += FOOD_VALUE;
+            }
+            this.setEat(true);
+            creature.die();
+        }
+    }
+
+    private boolean canEat(Creature creature) {
+        return !creature.getIsDead() && this.actualSatiety != this.getMaxSatiety() && !this.getIsEat();
     }
 
     public void chooseDirection() {
@@ -72,5 +72,4 @@ public abstract class Animal extends Creature {
 
     public void move() {
     }
-
 }
