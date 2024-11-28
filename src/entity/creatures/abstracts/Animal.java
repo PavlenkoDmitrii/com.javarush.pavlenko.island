@@ -44,6 +44,7 @@ public abstract class Animal extends Creature {
     }
 
     public void eat(Creature creature) {
+        this.isEat = false;
         if (!canEat(creature) || !this.getProbabilities().containsKey(creature.getName())) {
             return;
         }
