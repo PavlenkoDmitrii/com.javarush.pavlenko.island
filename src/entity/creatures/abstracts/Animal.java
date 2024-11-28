@@ -20,14 +20,6 @@ public abstract class Animal extends Creature {
         this.isEat = false;
     }
 
-    public boolean getIsEat() {
-        return isEat;
-    }
-
-    public void setEat(boolean isEat) {
-        this.isEat = isEat;
-    }
-
     public int getMaxSpeed() {
         return maxSpeed;
     }
@@ -46,6 +38,10 @@ public abstract class Animal extends Creature {
 
     public abstract HashMap<String, Integer> getProbabilities();
 
+    private boolean canEat(Creature creature) {
+        return !creature.getIsDead() && this.actualSatiety != this.getMaxSatiety() && !this.isEat;
+    }
+
     public void eat(Creature creature) {
         if (!canEat(creature) || !this.getProbabilities().containsKey(creature.getName())) {
             return;
@@ -58,13 +54,9 @@ public abstract class Animal extends Creature {
             } else {
                 this.actualSatiety += FOOD_VALUE;
             }
-            this.setEat(true);
+            this.isEat = true;
             creature.die();
         }
-    }
-
-    private boolean canEat(Creature creature) {
-        return !creature.getIsDead() && this.actualSatiety != this.getMaxSatiety() && !this.getIsEat();
     }
 
     public void chooseDirection() {

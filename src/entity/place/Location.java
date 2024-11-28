@@ -4,8 +4,7 @@ import entity.creatures.abstracts.*;
 import factory.TypesCreatures;
 import factory.TypesCreaturesFactory;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -70,9 +69,13 @@ public class Location {
     public void eatOnLocation() {
         for (Animal animal : getAnimals()) {
             if (!animal.getIsDead()) {
-                Creature randomCreatureForEat = creaturesOnLocation.get(ThreadLocalRandom.current().nextInt(0, getCreaturesOnLocation().size()));
-                if (!randomCreatureForEat.getIsDead()) {
-                    animal.eat(randomCreatureForEat);
+                for (Creature creatureOnLocation : creaturesOnLocation) {
+                    List <Creature> creaturesForEatList = new ArrayList<>();
+                    if (animal.getProbabilities().containsKey(creatureOnLocation.getName()) && !creatureOnLocation.getIsDead()) {
+                        creaturesForEatList.add(creatureOnLocation);
+                        Creature creatureForEat = creaturesForEatList.get((int)(Math.random() * creaturesForEatList.size()));
+                        animal.eat(creatureForEat);
+                    }
                 }
             }
         }
