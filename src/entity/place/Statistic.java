@@ -13,55 +13,110 @@ public class Statistic {
         this.location = location;
     }
 
-    public void getStatistic() {
-        int numberOfBoars = location.getCreaturesOnLocation().stream()
+    public int getNumberOfCreature(){
+        return location.getCreaturesOnLocation().stream()
+                .filter(creature -> this.getClass().getSimpleName().equalsIgnoreCase(creature.getName()))
+                .toList().size();
+    }
+
+    public int getNumberOfBoars(){
+        return location.getCreaturesOnLocation().stream()
                 .filter(boars -> boars instanceof Boar)
                 .toList().size();
-        int numberOfBuffaloes = location.getCreaturesOnLocation().stream()
+    }
+    public int getNumberOfBuffaloes(){
+        return location.getCreaturesOnLocation().stream()
                 .filter(buffaloes -> buffaloes instanceof Buffalo)
                 .toList().size();
-        int numberOfCaterpillars = location.getCreaturesOnLocation().stream()
+    }
+    public int getNumberOfCaterpillars(){
+        return location.getCreaturesOnLocation().stream()
                 .filter(caterpillars -> caterpillars instanceof Caterpillar)
                 .toList().size();
-        int numberOfDeers = location.getCreaturesOnLocation().stream()
+    }
+    public int getNumberOfDeers(){
+        return location.getCreaturesOnLocation().stream()
                 .filter(deers -> deers instanceof Deer)
                 .toList().size();
-        int numberOfDucks = location.getCreaturesOnLocation().stream()
+    }
+    public int getNumberOfDucks(){
+        return location.getCreaturesOnLocation().stream()
                 .filter(ducks -> ducks instanceof Duck)
                 .toList().size();
-        int numberOfGoats = location.getCreaturesOnLocation().stream()
+    }
+    public int getNumberOfGoats(){
+        return location.getCreaturesOnLocation().stream()
                 .filter(goats -> goats instanceof Goat)
                 .toList().size();
-        int numberOfHorses = location.getCreaturesOnLocation().stream()
+    }
+    public int getNumberOfHorses(){
+        return location.getCreaturesOnLocation().stream()
                 .filter(horses -> horses instanceof Horse)
                 .toList().size();
-        int numberOfMouses = location.getCreaturesOnLocation().stream()
+    }
+    public int getNumberOfMouses(){
+        return location.getCreaturesOnLocation().stream()
                 .filter(mouses -> mouses instanceof Mouse)
                 .toList().size();
-        int numberOfRabbits = location.getCreaturesOnLocation().stream()
+    }
+    public int getNumberOfRabbits(){
+        return location.getCreaturesOnLocation().stream()
                 .filter(rabbits -> rabbits instanceof Rabbit)
                 .toList().size();
-        int numberOfSeeps = location.getCreaturesOnLocation().stream()
+    }
+    public int getNumberOfSheeps(){
+        return location.getCreaturesOnLocation().stream()
                 .filter(sheeps -> sheeps instanceof Sheep)
                 .toList().size();
-        int numberOfBears = location.getCreaturesOnLocation().stream()
+    }
+    public int getNumberOfBears(){
+        return location.getCreaturesOnLocation().stream()
                 .filter(bears -> bears instanceof Bear)
                 .toList().size();
-        int numberOfBoas = location.getCreaturesOnLocation().stream()
+    }
+    public int getNumberOfBoas(){
+        return location.getCreaturesOnLocation().stream()
                 .filter(boas -> boas instanceof Boa)
                 .toList().size();
-        int numberOfEagles = location.getCreaturesOnLocation().stream()
+    }
+    public int getNumberOfEagles(){
+        return location.getCreaturesOnLocation().stream()
                 .filter(eagles -> eagles instanceof Eagle)
                 .toList().size();
-        int numberOfFoxes = location.getCreaturesOnLocation().stream()
+    }
+    public int getNumberOfFoxes(){
+        return location.getCreaturesOnLocation().stream()
                 .filter(foxes -> foxes instanceof Fox)
                 .toList().size();
-        int numberOfWolfs = location.getCreaturesOnLocation().stream()
+    }
+    public int getNumberOfWolfs(){
+        return location.getCreaturesOnLocation().stream()
                 .filter(wolfs -> wolfs instanceof Wolf)
                 .toList().size();
-        int numberOfPlants = location.getCreaturesOnLocation().stream()
+    }
+    public int getNumberOfPlants(){
+        return location.getCreaturesOnLocation().stream()
                 .filter(plants -> plants instanceof Plant)
                 .toList().size();
+    }
+
+    public void getStatistic() {
+        int numberOfBoars = getNumberOfBoars();
+        int numberOfBuffaloes = getNumberOfBuffaloes();
+        int numberOfCaterpillars = getNumberOfCaterpillars();
+        int numberOfDeers = getNumberOfDeers();
+        int numberOfDucks = getNumberOfDucks();
+        int numberOfGoats = getNumberOfGoats();
+        int numberOfHorses = getNumberOfHorses();
+        int numberOfMouses = getNumberOfMouses();
+        int numberOfRabbits = getNumberOfRabbits();
+        int numberOfSeeps = getNumberOfSheeps();
+        int numberOfBears = getNumberOfBears();
+        int numberOfBoas = getNumberOfBoas();
+        int numberOfEagles = getNumberOfEagles();
+        int numberOfFoxes = getNumberOfFoxes();
+        int numberOfWolfs = getNumberOfWolfs();
+        int numberOfPlants = getNumberOfPlants();
 
         System.out.println("[On location " + location.getId() + ": " +
                 BOAR_NAME + " " + numberOfBoars + " " +
@@ -81,5 +136,4 @@ public class Statistic {
                 WOLF_NAME + " " + numberOfWolfs + " " +
                 PLANT_NAME + " " + numberOfPlants + "]");
     }
-
 }

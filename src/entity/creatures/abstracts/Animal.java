@@ -1,5 +1,6 @@
 package entity.creatures.abstracts;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -32,9 +33,9 @@ public abstract class Animal extends Creature {
         return actualSatiety;
     }
 
-    public void worker() {
-        actualSatiety--;
-    }
+//    public void worker() {
+//        actualSatiety--;
+//    }
 
     public abstract HashMap<String, Integer> getProbabilities();
 
@@ -57,6 +58,23 @@ public abstract class Animal extends Creature {
             this.isEat = true;
             creature.die();
         }
+    }
+
+    private boolean canReproduce(Creature creature) {
+        return this.getClass().getSimpleName().equalsIgnoreCase(creature.getClass().getSimpleName()) &&
+                !this.getIsDead() && !creature.getIsDead();
+    }
+
+    @Override
+    public Creature reproduce(Creature creature) {
+        if (canReproduce(creature)) {
+            try {
+                return this.getClass().getConstructor().newInstance();
+            } catch (InstantiationException | IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
+                e.printStackTrace();
+            }
+        }
+        return this;
     }
 
     public void chooseDirection() {

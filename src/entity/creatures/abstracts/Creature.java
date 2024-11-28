@@ -1,5 +1,7 @@
 package entity.creatures.abstracts;
 
+import java.lang.reflect.InvocationTargetException;
+
 public abstract class Creature {
     private double weight;
     private int maxCountOnLocation;
@@ -33,8 +35,7 @@ public abstract class Creature {
         return name;
     }
 
-    public void reproduce() {
-    }
+    public abstract Creature reproduce(Creature creature);
 
     public void die() {
         setIsDead(true);

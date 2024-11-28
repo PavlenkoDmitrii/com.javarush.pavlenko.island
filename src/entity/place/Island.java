@@ -20,16 +20,16 @@ public class Island {
         return location;
     }
 
+    public List<Location> getLocations() {
+        return locations;
+    }
+
     public int getNumberOfLines() {
         return numberOfLines;
     }
 
     public int getNumberOfColumns() {
         return numberOfColumns;
-    }
-
-    public List<Location> getLocations() {
-        return locations;
     }
 
     private List<Location> createLocations() {
@@ -45,8 +45,11 @@ public class Island {
         for (Location location : createLocations()) {
             Statistic statistic = new Statistic(location);
             location.fillLocation();
+
             statistic.getStatistic();
+
             location.eatOnLocation();
+
             statistic.getStatistic();
         }
     }

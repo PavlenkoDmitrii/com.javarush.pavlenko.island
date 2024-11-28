@@ -139,10 +139,7 @@ public class Settings {
 
     public static final int FOOD_VALUE = 1;
 
-
-
-//number of creatures in one location at start
-    public static final int NUMBER_PREDATORS_IN_LOCATION_AT_START = 5;
-    public static final int NUMBER_HERBIVORES_IN_LOCATION_AT_START = 10;
-    public static final int NUMBER_PLANTS_IN_LOCATION_AT_START = 0;
+//    public static final int NUMBER_PREDATORS_IN_LOCATION_AT_START = 5;
+//    public static final int NUMBER_HERBIVORES_IN_LOCATION_AT_START = 10;
+//    public static final int NUMBER_PLANTS_IN_LOCATION_AT_START = 0;
 }
