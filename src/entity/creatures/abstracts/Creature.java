@@ -1,5 +1,7 @@
 package entity.creatures.abstracts;
 
+import entity.place.Location;
+
 import java.lang.reflect.InvocationTargetException;
 
 public abstract class Creature {
@@ -34,8 +36,6 @@ public abstract class Creature {
     public String getName() {
         return name;
     }
-
-    public abstract Creature reproduce(Creature creature);
 
     public void die() {
         setIsDead(true);

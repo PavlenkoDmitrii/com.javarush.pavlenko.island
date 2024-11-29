@@ -32,7 +32,7 @@ public class Settings {
     public static final int MAX_COUNT_MOUSE = 500;
     public static final int MAX_COUNT_GOAT = 140;
     public static final int MAX_COUNT_SHEEP = 140;
-    public static final int MAX_COUNT_BOAR = 500;
+    public static final int MAX_COUNT_BOAR = 50;
     public static final int MAX_COUNT_BUFFALO = 10;
     public static final int MAX_COUNT_DUCK = 200;
     public static final int MAX_COUNT_CATERPILLAR = 1000;

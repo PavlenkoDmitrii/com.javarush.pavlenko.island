@@ -12,6 +12,7 @@ public abstract class Animal extends Creature {
     private double maxSatiety;
     private double actualSatiety;
     private boolean isEat;
+    private boolean isReproduce;
 
     public Animal(double weight, int maxCountOnLocation, String name, int maxSpeed, double maxSatiety) {
         super(weight, maxCountOnLocation, name);
@@ -19,6 +20,7 @@ public abstract class Animal extends Creature {
         this.maxSatiety = maxSatiety;
         this.actualSatiety = (this.getMaxSatiety() / 2.0);
         this.isEat = false;
+        this.isReproduce = false;
     }
 
     public int getMaxSpeed() {
@@ -44,7 +46,6 @@ public abstract class Animal extends Creature {
     }
 
     public void eat(Creature creature) {
-        this.isEat = false;
         if (!canEat(creature) || !this.getProbabilities().containsKey(creature.getName())) {
             return;
         }
@@ -61,15 +62,16 @@ public abstract class Animal extends Creature {
         }
     }
 
-    private boolean canReproduce(Creature creature) {
-        return this.getClass().getSimpleName().equalsIgnoreCase(creature.getClass().getSimpleName()) &&
-                !this.getIsDead() && !creature.getIsDead();
+    private boolean canReproduce(Animal animal) {
+        return this.getClass().getSimpleName().equalsIgnoreCase(animal.getClass().getSimpleName()) &&
+                !this.getIsDead() && !animal.getIsDead() &&
+                !this.isReproduce && !animal.isReproduce;
     }
 
-    @Override
-    public Creature reproduce(Creature creature) {
-        if (canReproduce(creature)) {
+    public Animal reproduce(Animal animal) {
+        if (canReproduce(animal)) {
             try {
+                this.isReproduce = true;
                 return this.getClass().getConstructor().newInstance();
             } catch (InstantiationException | IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
                 e.printStackTrace();
