@@ -39,6 +39,10 @@ public abstract class Animal extends Creature {
         this.actualSatiety = actualSatiety;
     }
 
+    public boolean isReproduce() {
+        return isReproduce;
+    }
+
     public void starvation(Animal animal) {
         setActualSatiety(getActualSatiety()/2);
         if ((int) getActualSatiety() == 0){

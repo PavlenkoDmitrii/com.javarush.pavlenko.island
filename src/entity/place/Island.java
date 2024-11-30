@@ -58,16 +58,15 @@ public class Island {
     }
 
     private void fillLocation(Location location) {
-        List<Creature> locationAfterFilling = location.getCreaturesOnLocation();
-
+        List<Creature> temp = location.getCreaturesOnLocation();
         for (TypesCreatures type : TypesCreatures.values()) {
             int random = ThreadLocalRandom.current().nextInt(1, factory.createCreature(type).getMaxCountOnLocation());
             for (int j = 0; j < random; j++) {
                 Creature creature = factory.createCreature(type);
-                locationAfterFilling.add(creature);
+                temp.add(creature);
             }
         }
-        location.setCreaturesOnLocation(locationAfterFilling);
+        location.setCreaturesOnLocation(temp);
     }
 
     public void growOfPlantsOnLocation(Location location) {
@@ -76,13 +75,13 @@ public class Island {
             if (location.getAllPlants().size() >= MAX_COUNT_PLANT) {
                 return;
             }
-            List<Creature> locationAfterFillingPlants = location.getCreaturesOnLocation();
+            List<Creature> temp = location.getCreaturesOnLocation();
             int random = ThreadLocalRandom.current().nextInt(0, (MAX_COUNT_PLANT - location.getAllPlants().size()) + 1);
             for (int j = 0; j < random; j++) {
                 Creature creature = factory.createCreature(PLANT);
-                locationAfterFillingPlants.add(creature);
+                temp.add(creature);
             }
-            location.setCreaturesOnLocation(locationAfterFillingPlants);
+            location.setCreaturesOnLocation(temp);
         } finally {
             location.getLock().unlock();
         }
@@ -91,8 +90,7 @@ public class Island {
     public void eatOnLocation(Location location) {
         location.getLock().lock();
         try {
-            List<Creature> locationAfterMeal = location.getCreaturesOnLocation();
-
+            List<Creature> temp = location.getCreaturesOnLocation();
             for (Animal animal : location.getAnimals()) {
                 if (!animal.getIsDead()) {
                     for (Creature creatureOnLocation : location.getCreaturesOnLocation()) {
@@ -111,8 +109,8 @@ public class Island {
                     eatenCreatures.add(creature);
                 }
             }
-            locationAfterMeal.removeAll(eatenCreatures);
-            location.setCreaturesOnLocation(locationAfterMeal);
+            temp.removeAll(eatenCreatures);
+            location.setCreaturesOnLocation(temp);
         } finally {
             location.getLock().unlock();
         }
@@ -121,10 +119,12 @@ public class Island {
     public void reproduceOnLocation(Location location) {
         location.getLock().lock();
         try {
-            List<Creature> locationAfterReproduce = location.getCreaturesOnLocation();
+            List<Creature> temp = location.getCreaturesOnLocation();
             List<Animal> reproducedList = new ArrayList<>();
-
             for (Animal animal : location.getAnimals()) {
+                if (animal.isReproduce()) {
+                    continue;
+                }
                 long numberAnimalsThisTypeOnLocation = location.getNumberAnimalsOnLocation(animal);
                 long limit = animal.getMaxCountOnLocation() - location.getNumberAnimalsOnLocation(animal);
                 for (Animal animalForReproduce : location.getAnimals()) {
@@ -136,8 +136,8 @@ public class Island {
                     }
                 }
             }
-            locationAfterReproduce.addAll(reproducedList);
-            location.setCreaturesOnLocation(locationAfterReproduce);
+            temp.addAll(reproducedList);
+            location.setCreaturesOnLocation(temp);
         } finally {
             location.getLock().unlock();
         }
@@ -146,17 +146,16 @@ public class Island {
     public void starvationOnLocation(Location location) {
         location.getLock().lock();
         try {
-            List<Creature> locationAfterStarvation = location.getCreaturesOnLocation();
+            List<Creature> temp = location.getCreaturesOnLocation();
             List<Animal> listForDead = new ArrayList<>();
-
             for (Animal animal : location.getAnimals()) {
                 animal.starvation(animal);
                 if (animal.getIsDead()) {
                     listForDead.add(animal);
                 }
             }
-            locationAfterStarvation.removeAll(listForDead);
-            location.setCreaturesOnLocation(locationAfterStarvation);
+            temp.removeAll(listForDead);
+            location.setCreaturesOnLocation(temp);
         } finally {
             location.getLock().unlock();
         }
