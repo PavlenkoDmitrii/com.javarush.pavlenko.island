@@ -1,7 +1,3 @@
-import entity.creatures.abstracts.Creature;
-import entity.creatures.animals.predators.Fox;
-import entity.creatures.animals.predators.Wolf;
-import entity.creatures.plant.Plant;
 import entity.place.Island;
 
 public class Application {

@@ -35,20 +35,28 @@ public abstract class Animal extends Creature {
         return actualSatiety;
     }
 
-//    public void worker() {
-//        actualSatiety--;
-//    }
+    public void setActualSatiety(double actualSatiety) {
+        this.actualSatiety = actualSatiety;
+    }
+
+    public void starvation(Animal animal) {
+        setActualSatiety(getActualSatiety()/2);
+        if ((int) getActualSatiety() == 0){
+            animal.die();
+        }
+    }
 
     public abstract HashMap<String, Integer> getProbabilities();
 
     private boolean canEat(Creature creature) {
-        return !creature.getIsDead() && this.actualSatiety != this.getMaxSatiety() && !this.isEat;
+        return !creature.getIsDead() && this.actualSatiety < this.getMaxSatiety() && !this.isEat;
     }
 
     public void eat(Creature creature) {
         if (!canEat(creature) || !this.getProbabilities().containsKey(creature.getName())) {
             return;
         }
+        this.isEat = false;
         int probabilityToEat = ThreadLocalRandom.current().nextInt(0, 100);
         int probabilityOfEaten = this.getProbabilities().get(creature.getName());
         if (probabilityToEat <= probabilityOfEaten) {
