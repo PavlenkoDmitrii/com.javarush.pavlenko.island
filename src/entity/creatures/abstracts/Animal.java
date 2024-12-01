@@ -1,7 +1,11 @@
 package entity.creatures.abstracts;
 
+import entity.place.Location;
+
 import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
 import static config.Settings.FOOD_VALUE;
@@ -18,9 +22,13 @@ public abstract class Animal extends Creature {
         super(weight, maxCountOnLocation, name);
         this.maxSpeed = maxSpeed;
         this.maxSatiety = maxSatiety;
-        this.actualSatiety = (this.getMaxSatiety() / 2.0);
+        this.actualSatiety = (this.getMaxSatiety() / 6);
         this.isEat = false;
         this.isReproduce = false;
+    }
+
+    public boolean isEat() {
+        return isEat;
     }
 
     public int getMaxSpeed() {
@@ -43,11 +51,22 @@ public abstract class Animal extends Creature {
         return isReproduce;
     }
 
-    public void starvation(Animal animal) {
-        setActualSatiety(getActualSatiety()/2);
-        if ((int) getActualSatiety() == 0){
-            animal.die();
+    public void starvation() {
+        setActualSatiety(getActualSatiety() / 6);
+        if ((int) getActualSatiety() == 0) {
+            this.die();
         }
+    }
+
+    public void starvationOnLocation(Location location) {
+            List<Creature> temp = location.getCreaturesOnLocation();
+            List<Animal> listForDead = new ArrayList<>();
+            this.starvation();
+            if (this.getIsDead()) {
+                listForDead.add(this);
+            }
+            temp.removeAll(listForDead);
+            location.setCreaturesOnLocation(temp);
     }
 
     public abstract HashMap<String, Integer> getProbabilities();
@@ -74,6 +93,28 @@ public abstract class Animal extends Creature {
         }
     }
 
+    public void eatOnLocation(Location location) {
+            List<Creature> temp = location.getCreaturesOnLocation();
+            if (!this.getIsDead()) {
+                for (Creature creatureOnLocation : location.getCreaturesOnLocation()) {
+                    List<Creature> creaturesForEatList = new ArrayList<>();
+                    if (this.getProbabilities().containsKey(creatureOnLocation.getName()) && !creatureOnLocation.getIsDead()) {
+                        creaturesForEatList.add(creatureOnLocation);
+                        Creature creatureForEat = creaturesForEatList.get((int) (Math.random() * creaturesForEatList.size()));
+                        this.eat(creatureForEat);
+                    }
+                }
+            }
+            List<Creature> eatenCreatures = new ArrayList<>();
+            for (Creature creature : location.getCreaturesOnLocation()) {
+                if (creature.getIsDead()) {
+                    eatenCreatures.add(creature);
+                }
+            }
+            temp.removeAll(eatenCreatures);
+            location.setCreaturesOnLocation(temp);
+    }
+
     private boolean canReproduce(Animal animal) {
         return this.getClass().getSimpleName().equalsIgnoreCase(animal.getClass().getSimpleName()) &&
                 !this.getIsDead() && !animal.getIsDead() &&
@@ -85,11 +126,31 @@ public abstract class Animal extends Creature {
             try {
                 this.isReproduce = true;
                 return this.getClass().getConstructor().newInstance();
-            } catch (InstantiationException | IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
+            } catch (InstantiationException | IllegalAccessException | InvocationTargetException |
+                     NoSuchMethodException e) {
                 e.printStackTrace();
             }
         }
         return this;
+    }
+
+    public void reproduceOnLocation(Location location) {
+            List<Creature> temp = location.getCreaturesOnLocation();
+            List<Animal> reproducedList = new ArrayList<>();
+            if (!this.isReproduce()) {
+                long countAnimalsThisTypeOnLocation = location.getCountAnimalsOnLocation(this);
+                long limit = this.getMaxCountOnLocation() - location.getCountAnimalsOnLocation(this);
+                for (Animal animalForReproduce : location.getAnimals()) {
+                    if (countAnimalsThisTypeOnLocation >= 2 && countAnimalsThisTypeOnLocation < limit && this != animalForReproduce) {
+                        Animal child = this.reproduce(animalForReproduce);
+                        if (this != child) {
+                            reproducedList.add(child);
+                        }
+                    }
+                }
+                temp.addAll(reproducedList);
+                location.setCreaturesOnLocation(temp);
+            }
     }
 
     public void chooseDirection() {

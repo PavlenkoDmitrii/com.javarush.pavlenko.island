@@ -1,8 +1,6 @@
 package entity.creatures.abstracts;
 
-import entity.place.Location;
-
-import java.lang.reflect.InvocationTargetException;
+import factory.TypesCreaturesFactory;
 
 public abstract class Creature {
     private double weight;
