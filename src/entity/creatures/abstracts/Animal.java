@@ -152,10 +152,67 @@ public abstract class Animal extends Creature {
             location.setCreaturesOnLocation(temp);
         }
     }
-
-    public void chooseDirection() {
-    }
-
-    public void move() {
-    }
 }
+
+//    private Location forwardStep(Location thisLocation, Island island) {
+//        int thisLine = thisLocation.getLine();
+//        int thisColumn = thisLocation.getColumn();
+//        if (thisLine > 0) {
+//            Location newLocation = island.getLocations()[thisLine - 1][thisColumn];
+//            newLocation.addCreature(this);
+//            thisLocation.removeCreature(this);
+//            return newLocation;
+//        }
+//        return thisLocation;
+//    }
+//
+//    private Location backStep(Location thisLocation, Island island) {
+//        int thisLine = thisLocation.getLine();
+//        int thisColumn = thisLocation.getColumn();
+//        if (thisLine < island.getCountOfLines() - 1) {
+//            Location newLocation = island.getLocations()[thisLine + 1][thisColumn];
+//            newLocation.addCreature(this);
+//            thisLocation.removeCreature(this);
+//            return newLocation;
+//        }
+//        return thisLocation;
+//    }
+//
+//    private Location leftStep(Location thisLocation, Island island) {
+//        int thisLine = thisLocation.getLine();
+//        int thisColumn = thisLocation.getColumn();
+//        if (thisColumn > 0) {
+//            Location newLocation = island.getLocations()[thisLine][thisColumn - 1];
+//            newLocation.addCreature(this);
+//            thisLocation.removeCreature(this);
+//            return newLocation;
+//        }
+//        return thisLocation;
+//    }
+//
+//    private Location rightStep(Location thisLocation) {
+//        int thisRow = thisLocation.getLine();
+//        int thisColumn = thisLocation.getColumn();
+//        if (thisColumn < island.getCountOfColumns() - 1) {
+//            Location newLocation = island.getLocations()[thisRow][thisColumn + 1];
+//            newLocation.addCreature(this);
+//            thisLocation.removeCreature(this);
+//            return newLocation;
+//        }
+//        return thisLocation;
+//    }
+//
+//    public void move(Location location, Island island) {
+//        int numberSteps = ThreadLocalRandom.current().nextInt(0, this.getMaxSpeed());
+//        while (numberSteps > 0) {
+//            DirectionOfMovement direction = DirectionOfMovement.values()[numberSteps];
+//            switch (direction) {
+//                case FORWARD -> location = forwardStep(location, island);
+//                case BACK -> location = backStep(location, island);
+//                case LEFT -> location = leftStep(location, island);
+//                case RIGHT -> location = rightStep(location, island);
+//            }
+//            numberSteps--;
+//        }
+//    }
+//}

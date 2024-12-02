@@ -1,19 +1,15 @@
 import entity.place.Island;
 
-public class Application {
-    public static void main(String[] args) {
+import static config.Settings.*;
 
-        Island island = new Island(3, 3);
+public class Application {
+    public static void main(String[] args) throws InterruptedException {
+
+        Island island = new Island(LINES, COLUMNS);
         island.createLocations();
         Simulation simulation = new Simulation(island);
         simulation.startSimulation();
-
-        try {
-            Thread.sleep(10000);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
-
+        Thread.sleep(DAYS_BEFORE_STOPPING);
         simulation.stopSimulation();
     }
 }

@@ -10,12 +10,13 @@ public class CreaturesWorker implements Runnable {
 
     private final Island island;
     private final Statistic statistic;
-    private static final AtomicInteger atomicCounter = new AtomicInteger(1);
+    private static final AtomicInteger daysCounter = new AtomicInteger(1);
 
     public CreaturesWorker(Island island) {
         this.island = island;
         this.statistic = new Statistic();
     }
+
 
     @Override
     public void run() {
@@ -29,7 +30,7 @@ public class CreaturesWorker implements Runnable {
                 }
             }
         }
-        System.out.println("День: " + atomicCounter.getAndIncrement());
+        System.out.println("День: " + daysCounter.getAndIncrement());
         statistic.getStatistic(island);
         System.out.println();
     }
@@ -46,6 +47,7 @@ public class CreaturesWorker implements Runnable {
                 }
             });
             animals.forEach(animal -> animal.starvationOnLocation(location));
+            //animals.forEach(animal -> animal.move(location));
             plants.forEach(plant -> plant.growOfPlantsOnLocation(location));
         } finally {
             location.getLock().unlock();

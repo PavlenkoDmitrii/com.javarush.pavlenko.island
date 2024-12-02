@@ -19,6 +19,14 @@ public class Island {
         this.locations = new Location[countOfLines][countOfColumns];
     }
 
+    public int getCountOfLines() {
+        return countOfLines;
+    }
+
+    public int getCountOfColumns() {
+        return countOfColumns;
+    }
+
     public Location[][] getLocations() {
         return locations;
     }
@@ -43,5 +51,8 @@ public class Island {
             }
         }
     }
+
+
 }
+
 

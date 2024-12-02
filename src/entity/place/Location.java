@@ -2,16 +2,11 @@ package entity.place;
 
 import entity.creatures.abstracts.*;
 import entity.creatures.plant.Plant;
-import factory.TypesCreatures;
-import factory.TypesCreaturesFactory;
 
 import java.util.*;
 import java.util.concurrent.CopyOnWriteArrayList;
-import java.util.concurrent.ThreadLocalRandom;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
-
-import static factory.TypesCreaturesFactory.createCreature;
 
 public class Location {
     private final int line;
@@ -38,21 +33,21 @@ public class Location {
         this.creaturesOnLocation = creaturesOnLocation;
     }
 
-//    public void addCreature(Creature creature) {
-//        creaturesOnLocation.add(creature);
-//    }
-//
-//    public void removeCreaturesOnIsland(Creature creature) {
-//        creaturesOnLocation.remove(creature);
-//    }
-//
-//    public int getLine() {
-//        return line;
-//    }
-//
-//    public int getColumn() {
-//        return column;
-//    }
+    public int getLine() {
+        return line;
+    }
+
+    public int getColumn() {
+        return column;
+    }
+
+    public void addCreature(Creature creature) {
+        creaturesOnLocation.add(creature);
+    }
+
+    public void removeCreature(Creature creature) {
+        creaturesOnLocation.remove(creature);
+    }
 
     public List<Animal> getAnimals() {
         return creaturesOnLocation.stream()

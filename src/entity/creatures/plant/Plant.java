@@ -24,7 +24,7 @@ public class Plant extends Creature {
             }
             List<Creature> temp = location.getCreaturesOnLocation();
             int random = ThreadLocalRandom.current().nextInt(0, (MAX_COUNT_PLANT - location.getAllPlants().size()) + 1);
-            for (int i = 0; i < random / 130; i++) {                      //искусственно ограничен рост травы
+            for (int i = 0; i < random/130; i++) {                      //искусственно ограничен рост травы
                 Creature creature = createCreature(PLANT);
                 temp.add(creature);
             }

@@ -2,10 +2,19 @@ package config;
 
 public class Settings {
 
+    public static final int DAYS_BEFORE_STOPPING = 100*1000;
+
+    public static final int LINES = 3;
+    public static final int COLUMNS = 3;
+
+    public static final int NUMBER_OF_THREADS_FOR_SIMULATION = 1;
+    public static final int NUMBER_OF_THREADS_FOR_WORKER = 4;
+
 //WEIGHT
     public static final double WEIGHT_WOLF = 50;
     public static final double WEIGHT_BOA = 15;
     public static final double WEIGHT_FOX = 8;
+
     public static final double WEIGHT_BEAR = 500;
     public static final double WEIGHT_EAGLE = 6;
     public static final double WEIGHT_HORSE = 400;
@@ -138,8 +147,4 @@ public class Settings {
     public static final int PROBABILITY_PLANTS_TO_BE_EATABLE = 100;
 
     public static final int FOOD_VALUE = 1;
-
-//    public static final int NUMBER_PREDATORS_IN_LOCATION_AT_START = 5;
-//    public static final int NUMBER_HERBIVORES_IN_LOCATION_AT_START = 10;
-//    public static final int NUMBER_PLANTS_IN_LOCATION_AT_START = 0;
 }

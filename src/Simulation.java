@@ -2,6 +2,9 @@ import entity.place.Island;
 
 import java.util.concurrent.*;
 
+import static config.Settings.NUMBER_OF_THREADS_FOR_SIMULATION;
+import static config.Settings.NUMBER_OF_THREADS_FOR_WORKER;
+
 public class Simulation {
 
     private final ScheduledExecutorService executorSimulationService;
@@ -9,8 +12,8 @@ public class Simulation {
     Island island;
 
     public Simulation(Island island) {
-        this.executorSimulationService = Executors.newScheduledThreadPool(1);
-        this.serviceForCreaturesWorker = Executors.newFixedThreadPool(4);
+        this.executorSimulationService = Executors.newScheduledThreadPool(NUMBER_OF_THREADS_FOR_SIMULATION);
+        this.serviceForCreaturesWorker = Executors.newFixedThreadPool(NUMBER_OF_THREADS_FOR_WORKER);
         this.island = island;
     }
 
@@ -20,12 +23,12 @@ public class Simulation {
 
     private void startLifeCycle() {
         CreaturesWorker creaturesWorker = new CreaturesWorker(island);
-        serviceForCreaturesWorker.submit(() -> {
+        serviceForCreaturesWorker.execute(() -> {
             try {
                 creaturesWorker.run();
             } catch (Exception e) {
                 Thread.currentThread().interrupt();
-                System.err.println("Lifecycle interrupted!");
+                e.printStackTrace();
             }
         });
     }
