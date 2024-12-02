@@ -18,7 +18,7 @@ public class Simulation {
         executorSimulationService.scheduleWithFixedDelay(this::startLifeCycle, 0, 1, TimeUnit.SECONDS);
     }
 
-    public void startLifeCycle() {
+    private void startLifeCycle() {
         CreaturesWorker creaturesWorker = new CreaturesWorker(island);
         serviceForCreaturesWorker.submit(() -> {
             try {

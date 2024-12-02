@@ -11,19 +11,19 @@ import java.util.concurrent.ThreadLocalRandom;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
+import static factory.TypesCreaturesFactory.createCreature;
+
 public class Location {
     private final int line;
     private final int column;
     private List<Creature> creaturesOnLocation;
     private final Lock lock = new ReentrantLock(true);
-    private final TypesCreaturesFactory factory;
 
 
     public Location(int x, int y) {
         this.line = x;
         this.column = y;
         this.creaturesOnLocation = new CopyOnWriteArrayList<>();
-        this.factory = new TypesCreaturesFactory();
     }
 
     public Lock getLock() {
@@ -72,18 +72,6 @@ public class Location {
         return creaturesOnLocation.stream()
                 .filter(currentType -> animal.getClass().isInstance(currentType))
                 .count();
-    }
-
-    public void fillLocation() {
-        List<Creature> temp = this.getCreaturesOnLocation();
-        for (TypesCreatures type : TypesCreatures.values()) {
-            int random = ThreadLocalRandom.current().nextInt(1, factory.createCreature(type).getMaxCountOnLocation());
-            for (int j = 0; j < random; j++) {
-                Creature creature = factory.createCreature(type);
-                temp.add(creature);
-            }
-        }
-        setCreaturesOnLocation(temp);
     }
 }
 

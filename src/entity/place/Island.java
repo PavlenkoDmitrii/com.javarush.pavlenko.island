@@ -1,5 +1,13 @@
 package entity.place;
 
+import entity.creatures.abstracts.Creature;
+import factory.TypesCreatures;
+
+import java.util.List;
+import java.util.concurrent.ThreadLocalRandom;
+
+import static factory.TypesCreaturesFactory.createCreature;
+
 public class Island {
     private final int countOfLines;
     private final int countOfColumns;
@@ -15,11 +23,23 @@ public class Island {
         return locations;
     }
 
+    private void fillLocation(Location location) {
+        List<Creature> temp = location.getCreaturesOnLocation();
+        for (TypesCreatures type : TypesCreatures.values()) {
+            int random = ThreadLocalRandom.current().nextInt(1, createCreature(type).getMaxCountOnLocation());
+            for (int i = 0; i < random; i++) {
+                Creature creature = createCreature(type);
+                temp.add(creature);
+            }
+        }
+        location.setCreaturesOnLocation(temp);
+    }
+
     public void createLocations() {
         for (int line = 0; line < countOfLines; line++) {
             for (int column = 0; column < countOfColumns; column++) {
                 locations[line][column] = new Location(line, column);
-                locations[line][column].fillLocation();
+                fillLocation(locations[line][column]);
             }
         }
     }

@@ -4,11 +4,13 @@ import entity.place.Island;
 import entity.place.Location;
 
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class CreaturesWorker implements Runnable {
 
     private final Island island;
     private final Statistic statistic;
+    private static final AtomicInteger atomicCounter = new AtomicInteger(1);
 
     public CreaturesWorker(Island island) {
         this.island = island;
@@ -27,7 +29,9 @@ public class CreaturesWorker implements Runnable {
                 }
             }
         }
+        System.out.println("День: " + atomicCounter.getAndIncrement());
         statistic.getStatistic(island);
+        System.out.println();
     }
 
     private void processingOnLocation(Location location) {

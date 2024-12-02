@@ -47,11 +47,11 @@ public abstract class Animal extends Creature {
         this.actualSatiety = actualSatiety;
     }
 
-    public boolean isReproduce() {
+    private boolean isReproduce() {
         return isReproduce;
     }
 
-    public void starvation() {
+    private void starvation() {
         setActualSatiety(getActualSatiety() / 6);
         if ((int) getActualSatiety() == 0) {
             this.die();
@@ -75,7 +75,7 @@ public abstract class Animal extends Creature {
         return !creature.getIsDead() && this.actualSatiety < this.getMaxSatiety() && !this.isEat;
     }
 
-    public void eat(Creature creature) {
+    private void eat(Creature creature) {
         if (!canEat(creature) || !this.getProbabilities().containsKey(creature.getName())) {
             return;
         }
@@ -121,14 +121,14 @@ public abstract class Animal extends Creature {
                 !this.isReproduce && !animal.isReproduce;
     }
 
-    public Animal reproduce(Animal animal) {
+    private Animal reproduce(Animal animal) {
         if (canReproduce(animal)) {
             try {
                 this.isReproduce = true;
                 return this.getClass().getConstructor().newInstance();
             } catch (InstantiationException | IllegalAccessException | InvocationTargetException |
                      NoSuchMethodException e) {
-                e.printStackTrace();
+                throw new RuntimeException("New instance is corrupted!");
             }
         }
         return this;

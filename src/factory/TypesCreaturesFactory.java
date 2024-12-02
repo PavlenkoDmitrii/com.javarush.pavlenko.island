@@ -7,7 +7,7 @@ import entity.creatures.plant.Plant;
 
 public class TypesCreaturesFactory {
 
-    public Creature createCreature(TypesCreatures type) {
+    public static Creature createCreature(TypesCreatures type) {
 
         Creature creatures;
         switch (type) {
