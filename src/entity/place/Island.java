@@ -19,12 +19,7 @@ public class Island {
         for (int line = 0; line < countOfLines; line++) {
             for (int column = 0; column < countOfColumns; column++) {
                 locations[line][column] = new Location(line, column);
-            }
-        }
-        Location[][] locations = getLocations();
-        for (Location[] line : locations) {
-            for (Location location : line) {
-                location.fillLocation();
+                locations[line][column].fillLocation();
             }
         }
     }

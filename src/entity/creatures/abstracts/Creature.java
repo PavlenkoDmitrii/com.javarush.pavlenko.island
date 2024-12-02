@@ -1,11 +1,9 @@
 package entity.creatures.abstracts;
 
-import factory.TypesCreaturesFactory;
-
 public abstract class Creature {
     private double weight;
-    private int maxCountOnLocation;
-    private String name;
+    private final int maxCountOnLocation;
+    private final String name;
     private boolean isDead;
 
     public Creature(double weight, int maxCountOnLocation, String name) {
@@ -21,10 +19,6 @@ public abstract class Creature {
 
     public void setIsDead(boolean isDead) {
         this.isDead = isDead;
-    }
-
-    public double getWeight() {
-        return weight;
     }
 
     public int getMaxCountOnLocation() {

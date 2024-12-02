@@ -32,12 +32,17 @@ public class Simulation {
 
     public void stopSimulation() {
         executorSimulationService.shutdown();
+        serviceForCreaturesWorker.shutdown();
         try {
-            if (!executorSimulationService.awaitTermination(10, TimeUnit.SECONDS)) {
+            if (!serviceForCreaturesWorker.awaitTermination(10, TimeUnit.SECONDS) &&
+                    !executorSimulationService.awaitTermination(10, TimeUnit.SECONDS)) {
+
                 executorSimulationService.shutdownNow();
+                serviceForCreaturesWorker.shutdownNow();
             }
         } catch (InterruptedException e) {
             executorSimulationService.shutdownNow();
+            serviceForCreaturesWorker.shutdownNow();
             throw new RuntimeException(e);
         }
     }
