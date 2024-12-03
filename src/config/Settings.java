@@ -2,8 +2,6 @@ package config;
 
 public class Settings {
 
-    public static final int DAYS_BEFORE_STOPPING = 100*1000;
-
     public static final int LINES = 3;
     public static final int COLUMNS = 3;
 
