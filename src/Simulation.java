@@ -9,7 +9,7 @@ public class Simulation {
 
     private final ScheduledExecutorService executorSimulationService;
     private final ExecutorService serviceForCreaturesWorker;
-    Island island;
+    private final Island island;
 
     public Simulation(Island island) {
         this.executorSimulationService = Executors.newScheduledThreadPool(NUMBER_OF_THREADS_FOR_SIMULATION);
@@ -18,37 +18,38 @@ public class Simulation {
     }
 
     public void startSimulation() {
-        executorSimulationService.scheduleWithFixedDelay(this::startLifeCycle, 0, 1, TimeUnit.SECONDS);
+        System.out.println("Начало симуляции.");
+        executorSimulationService.scheduleWithFixedDelay(this::lifeCycle, 0, 1, TimeUnit.SECONDS);
     }
 
-    private void startLifeCycle() {
+    private void lifeCycle() {
         CreaturesWorker creaturesWorker = new CreaturesWorker(island);
-        serviceForCreaturesWorker.execute(() -> {
-            try {
-                creaturesWorker.run();
-            } catch (Exception e) {
-                Thread.currentThread().interrupt();
-                e.printStackTrace();
-            }
-        });
+        serviceForCreaturesWorker.execute(creaturesWorker);
+        if (Statistic.getCountOfPredators(island) == 0 && Statistic.getCountOfHerbivores(island) == 0) {
+            stopSimulation();
+        }
     }
 
     public void stopSimulation() {
-        executorSimulationService.shutdown();
         serviceForCreaturesWorker.shutdown();
         try {
-            if (!serviceForCreaturesWorker.awaitTermination(10, TimeUnit.SECONDS) &&
-                    !executorSimulationService.awaitTermination(10, TimeUnit.SECONDS)) {
-
-                executorSimulationService.shutdownNow();
+            if (!serviceForCreaturesWorker.awaitTermination(2, TimeUnit.SECONDS)) {
                 serviceForCreaturesWorker.shutdownNow();
             }
         } catch (InterruptedException e) {
-            executorSimulationService.shutdownNow();
             serviceForCreaturesWorker.shutdownNow();
-            throw new RuntimeException(e);
         }
+        executorSimulationService.shutdown();
+        try {
+            if (!executorSimulationService.awaitTermination(2, TimeUnit.SECONDS)) {
+                executorSimulationService.shutdownNow();
+            }
+        } catch (InterruptedException e) {
+            executorSimulationService.shutdownNow();
+        }
+        System.out.println("Симуляция завершена.");
     }
 }
+
 
 

@@ -1,6 +1,8 @@
 package entity.place;
 
+import entity.creatures.abstracts.Animal;
 import entity.creatures.abstracts.Creature;
+import entity.place.movement.DirectionOfMovement;
 import factory.TypesCreatures;
 
 import java.util.List;
@@ -52,7 +54,86 @@ public class Island {
         }
     }
 
+    private Location forwardStep(Location thisLocation, Animal animal) {
+        int thisLine = thisLocation.getLine();
+        int thisColumn = thisLocation.getColumn();
+        if (thisLine > 0) {
+            Location newLocation = getLocations()[thisLine - 1][thisColumn];
+            newLocation.addCreature(animal);
+            thisLocation.removeCreature(animal);
+            return newLocation;
+        }
+        return thisLocation;
+    }
 
+    private Location backStep(Location thisLocation, Animal animal) {
+        int thisLine = thisLocation.getLine();
+        int thisColumn = thisLocation.getColumn();
+        if (thisLine < getCountOfLines() - 1) {
+            Location newLocation = getLocations()[thisLine + 1][thisColumn];
+            newLocation.addCreature(animal);
+            thisLocation.removeCreature(animal);
+            return newLocation;
+        }
+        return thisLocation;
+    }
+
+    private Location leftStep(Location thisLocation, Animal animal) {
+        int thisLine = thisLocation.getLine();
+        int thisColumn = thisLocation.getColumn();
+        if (thisColumn > 0) {
+            Location newLocation = getLocations()[thisLine][thisColumn - 1];
+            newLocation.addCreature(animal);
+            thisLocation.removeCreature(animal);
+            return newLocation;
+        }
+        return thisLocation;
+    }
+
+    private Location rightStep(Location thisLocation, Animal animal) {
+        int thisLine = thisLocation.getLine();
+        int thisColumn = thisLocation.getColumn();
+        if (thisColumn < getCountOfColumns() - 1) {
+            Location newLocation = getLocations()[thisLine][thisColumn + 1];
+            newLocation.addCreature(animal);
+            thisLocation.removeCreature(animal);
+            return newLocation;
+        }
+        return thisLocation;
+    }
+
+   private void move(Location location, Animal animal) {
+        int numberSteps = animal.getMaxSpeed() - 1;
+        while (numberSteps > 0) {
+            DirectionOfMovement direction = DirectionOfMovement.values()[numberSteps];
+            switch (direction) {
+                case FORWARD -> location = forwardStep(location, animal);
+                case BACK -> location = backStep(location, animal);
+                case LEFT -> location = leftStep(location, animal);
+                case RIGHT -> location = rightStep(location, animal);
+            }
+            numberSteps--;
+        }
+    }
+
+    public void movingAroundLocations() {
+        Location[][] locations = getLocations();
+        for (Location[] line : locations) {
+            for (Location location : line) {
+                location.getLock().lock();
+                try {
+                    List<Animal> animals = location.getAnimals();
+                    for (Animal animal : animals) {
+                        if (location.getCountAnimalsOnLocation(animal) < animal.getMaxCountOnLocation()) {
+                            move(location, animal);
+                        }
+                    }
+                } finally {
+                    location.getLock().unlock();
+                }
+            }
+        }
+    }
 }
 
 

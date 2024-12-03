@@ -27,10 +27,6 @@ public abstract class Animal extends Creature {
         this.isReproduce = false;
     }
 
-    public boolean isEat() {
-        return isEat;
-    }
-
     public int getMaxSpeed() {
         return maxSpeed;
     }
@@ -45,10 +41,6 @@ public abstract class Animal extends Creature {
 
     public void setActualSatiety(double actualSatiety) {
         this.actualSatiety = actualSatiety;
-    }
-
-    private boolean isReproduce() {
-        return isReproduce;
     }
 
     private void starvation() {
@@ -70,6 +62,10 @@ public abstract class Animal extends Creature {
     }
 
     public abstract HashMap<String, Integer> getProbabilities();
+
+    public boolean isEat() {
+        return isEat;
+    }
 
     private boolean canEat(Creature creature) {
         return !creature.getIsDead() && this.actualSatiety < this.getMaxSatiety() && !this.isEat;
@@ -115,6 +111,10 @@ public abstract class Animal extends Creature {
         location.setCreaturesOnLocation(temp);
     }
 
+    private boolean isReproduce() {
+        return isReproduce;
+    }
+
     private boolean canReproduce(Animal animal) {
         return this.getClass().getSimpleName().equalsIgnoreCase(animal.getClass().getSimpleName()) &&
                 !this.getIsDead() && !animal.getIsDead() &&
@@ -138,10 +138,11 @@ public abstract class Animal extends Creature {
         List<Creature> temp = location.getCreaturesOnLocation();
         List<Animal> reproducedList = new ArrayList<>();
         if (!this.isReproduce()) {
-            long countAnimalsThisTypeOnLocation = location.getCountAnimalsOnLocation(this);
-            long limit = this.getMaxCountOnLocation() - location.getCountAnimalsOnLocation(this);
+            long countAnimalsOnLocation = location.getCountAnimalsOnLocation(this);
+            long limitAnimalsForCurrentLocation = this.getMaxCountOnLocation() - location.getCountAnimalsOnLocation(this);
+            long limitAnimalsMax = this.getMaxCountOnLocation();
             for (Animal animalForReproduce : location.getAnimals()) {
-                if (countAnimalsThisTypeOnLocation >= 2 && countAnimalsThisTypeOnLocation < limit && this != animalForReproduce) {
+                if (countAnimalsOnLocation >= 2 && limitAnimalsForCurrentLocation < limitAnimalsMax && this != animalForReproduce) {
                     Animal child = this.reproduce(animalForReproduce);
                     if (this != child) {
                         reproducedList.add(child);
@@ -153,66 +154,3 @@ public abstract class Animal extends Creature {
         }
     }
 }
-
-//    private Location forwardStep(Location thisLocation, Island island) {
-//        int thisLine = thisLocation.getLine();
-//        int thisColumn = thisLocation.getColumn();
-//        if (thisLine > 0) {
-//            Location newLocation = island.getLocations()[thisLine - 1][thisColumn];
-//            newLocation.addCreature(this);
-//            thisLocation.removeCreature(this);
-//            return newLocation;
-//        }
-//        return thisLocation;
-//    }
-//
-//    private Location backStep(Location thisLocation, Island island) {
-//        int thisLine = thisLocation.getLine();
-//        int thisColumn = thisLocation.getColumn();
-//        if (thisLine < island.getCountOfLines() - 1) {
-//            Location newLocation = island.getLocations()[thisLine + 1][thisColumn];
-//            newLocation.addCreature(this);
-//            thisLocation.removeCreature(this);
-//            return newLocation;
-//        }
-//        return thisLocation;
-//    }
-//
-//    private Location leftStep(Location thisLocation, Island island) {
-//        int thisLine = thisLocation.getLine();
-//        int thisColumn = thisLocation.getColumn();
-//        if (thisColumn > 0) {
-//            Location newLocation = island.getLocations()[thisLine][thisColumn - 1];
-//            newLocation.addCreature(this);
-//            thisLocation.removeCreature(this);
-//            return newLocation;
-//        }
-//        return thisLocation;
-//    }
-//
-//    private Location rightStep(Location thisLocation) {
-//        int thisRow = thisLocation.getLine();
-//        int thisColumn = thisLocation.getColumn();
-//        if (thisColumn < island.getCountOfColumns() - 1) {
-//            Location newLocation = island.getLocations()[thisRow][thisColumn + 1];
-//            newLocation.addCreature(this);
-//            thisLocation.removeCreature(this);
-//            return newLocation;
-//        }
-//        return thisLocation;
-//    }
-//
-//    public void move(Location location, Island island) {
-//        int numberSteps = ThreadLocalRandom.current().nextInt(0, this.getMaxSpeed());
-//        while (numberSteps > 0) {
-//            DirectionOfMovement direction = DirectionOfMovement.values()[numberSteps];
-//            switch (direction) {
-//                case FORWARD -> location = forwardStep(location, island);
-//                case BACK -> location = backStep(location, island);
-//                case LEFT -> location = leftStep(location, island);
-//                case RIGHT -> location = rightStep(location, island);
-//            }
-//            numberSteps--;
-//        }
-//    }
-//}

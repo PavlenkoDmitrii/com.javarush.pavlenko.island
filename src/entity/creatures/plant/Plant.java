@@ -17,20 +17,15 @@ public class Plant extends Creature {
     }
 
     public void growOfPlantsOnLocation(Location location) {
-        location.getLock().lock();
-        try {
-            if (location.getAllPlants().size() >= MAX_COUNT_PLANT) {
-                return;
-            }
-            List<Creature> temp = location.getCreaturesOnLocation();
-            int random = ThreadLocalRandom.current().nextInt(0, (MAX_COUNT_PLANT - location.getAllPlants().size()) + 1);
-            for (int i = 0; i < random/130; i++) {                      //искусственно ограничен рост травы
-                Creature creature = createCreature(PLANT);
-                temp.add(creature);
-            }
-            location.setCreaturesOnLocation(temp);
-        } finally {
-            location.getLock().unlock();
+        if (location.getAllPlants().size() >= MAX_COUNT_PLANT) {
+            return;
         }
+        List<Creature> temp = location.getCreaturesOnLocation();
+        int random = ThreadLocalRandom.current().nextInt(0, (MAX_COUNT_PLANT - location.getAllPlants().size()) + 1);
+        for (int i = 0; i < random / 100; i++) {                      //искусственно ограничен рост травы
+            Creature creature = createCreature(PLANT);
+            temp.add(creature);
+        }
+        location.setCreaturesOnLocation(temp);
     }
 }

@@ -1,4 +1,4 @@
-package entity.creatures.abstracts.movement;
+package entity.place.movement;
 
 public enum DirectionOfMovement {
     FORWARD,
